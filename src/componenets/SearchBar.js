@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-const SearchBar = ({ query, onQueryChange }) => {
+const SearchBar = ({ query, onQueryChange, onSubmitSearch }) => {
   return (
     <View style={styles.searchBarContainer}>
       <AntDesign name="search1" size={28} color="black" style={styles.icon} />
@@ -11,17 +11,10 @@ const SearchBar = ({ query, onQueryChange }) => {
         autoCorrect={false}
         autoCapitalize="none"
         value={query}
-        onChangeText={(newQuery) => onQueryChange(newQuery)}
+        onChangeText={onQueryChange}
         placeholder="Search"
+        onEndEditing={onSubmitSearch}
       />
-
-      {/* <TextInput
-        style={styles.input}
-        autoCapitalize="none"
-        autoCorrect={false}
-        value={name}
-        onChangeText={(newValue) => setName(newValue)}
-      /> */}
     </View>
   );
 };
