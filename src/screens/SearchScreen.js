@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import SearchBar from "../componenets/SearchBar";
 import yelp from "../api/yelp";
-// import axios from "axios";
+import RestaurantList from "../componenets/RestaurantList";
 
 const SearchScreen = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const searchApi = async () => {
     try {
@@ -22,19 +23,20 @@ const SearchScreen = () => {
       );
       setResults(response.data.businesses);
     } catch (error) {
-      console.log(error.message);
+      setErrorMessage("Something Went wrong");
     }
   };
 
   return (
     <View>
-      <Text>SearchScreen</Text>
       <SearchBar
         query={query}
         onQueryChange={(newQuery) => setQuery(newQuery)}
         onSubmitSearch={searchApi}
       />
+      {errorMessage ? <Text>{errorMessage}</Text> : null}
       <Text>we found {results.length} results</Text>
+      <RestaurantList />
     </View>
   );
 };
